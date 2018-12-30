@@ -18,11 +18,10 @@
   },
   "homepage": "https://github.com/bradleypmartin/serverless-api-tutorial#readme",
   "devDependencies": {
-    "sequelize": "^4.42.0",
+    "sequelize": "^3.30.4",
     "serverless-offline": "^3.31.3"
   },
   "dependencies": {
-    "pg": "^7.7.1",
-    "sequelize": "^4.42.0"
+    "pg": "^6.4.2"
   }
 }
