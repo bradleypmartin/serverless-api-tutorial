@@ -39,12 +39,19 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  read:
-    handler: features/read.read
+  getTodo:
+    handler: features/read.getTodo
     events:
       - http:
-          path: first_path
+          path: todo
           method: get
+          
+  createTodo:
+    handler: features/create.createTodo
+    events:
+      - http:
+          path: todo
+          method: post
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic

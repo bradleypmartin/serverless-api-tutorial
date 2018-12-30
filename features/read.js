@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports.read = (event, context, callback) => {
-    const message = 'Thanks for hitting the get route! :)';
+module.exports.getTodo = (event, context, callback) => {
+    const todo = 'Make dinner';
     const response = {
         statusCode: 200,
         body: JSON.stringify({
-          message: message
+          message: todo
         }),
     };
 
