@@ -1,14 +1,36 @@
+const db = require('../db.js')
+
 module.exports.createTodo = (event, context, callback) => {
     const body = JSON.parse(event.body);
+    const { task } = body;
     
-    const mockDB = body.todo + ' is now saved to the db.';
+    if (!task) {
+      return callback(null, {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: 'The property "task" is required.'
+        })
+      });
+    }
     
-    const response = {
+    db.todo
+    .create({
+      task: body.task
+    })
+    .then(todo => {
+      return callback(null, {
         statusCode: 200,
         body: JSON.stringify({
-          todo: mockDB
-        }),
-    };
-    
-    return callback(null, response);
+          todo: todo
+        })
+      });
+    }).catch(error => {
+        callback(null, {
+            statusCode: 500,
+            body: JSON.stringify({
+                error: `There was an error creating your todo.`
+            })
+        });
+    });
+
 };

@@ -8,6 +8,7 @@ provider:
   runtime: nodejs8.10
   stage: dev
   region: us-east-1
+  timeout: 60
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -30,20 +31,24 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+package:
+  include:
+    - features/**
+    - models/**
 
 functions:
   getTodo:
     handler: features/read.getTodo
     events:
       - http:
-          path: todo
+          path: todo/{id}
+          method: get
+          
+  listTodos:
+    handler: features/read.listTodos
+    events:
+      - http:
+          path: todos
           method: get
           
   createTodo:
@@ -52,6 +57,20 @@ functions:
       - http:
           path: todo
           method: post
+          
+  deleteTodo:
+    handler: features/delete.deleteTodo
+    events:
+      - http:
+          path: todo/{id}
+          method: delete
+          
+  updateTodo:
+    handler: features/update.updateTodo
+    events:
+      - http:
+          path: todo/{id}
+          method: patch
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
